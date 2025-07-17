@@ -1,8 +1,8 @@
 import { postData } from "./actions";
 import { URL_CONSTANTS } from "./url";
 
-const createStudent = (params) => {
-  return postData(URL_CONSTANTS.student_details, params);
+const createProduct = (params) => {
+  return postData(URL_CONSTANTS.products, params);
 };
 
-export { createStudent };
+export { createProduct };

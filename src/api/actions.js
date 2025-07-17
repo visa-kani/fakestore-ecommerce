@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { hostConfig } from "../config";
 
 const postData = (requestUrl, params) => {
@@ -67,7 +66,6 @@ const getDataList = (requestUrl, params) => {
     )
         .then((response) => {
             if (response.status === 401) {
-                toast.error("Session Expired");
                 window.location.href = "/login";
                 return; // stop further processing
             } else {
@@ -110,7 +108,6 @@ const getDataByID = (requestUrl, id, params) => {
     )
         .then((response) => {
             if (response.status === 401) {
-                toast.error("Session Expired");
                 window.location.href = "/login";
                 return; // stop further processing
             } else {
@@ -146,7 +143,6 @@ const updateData = (requestUrl, params, id) => {
     })
         .then((response) => {
             if (response.status === 401) {
-                toast.error("Session Expired");
                 window.location.href = "/login";
                 return; // stop further processing
             } else {
@@ -172,7 +168,6 @@ const deleteData = (requestUrl, id) => {
     })
         .then((response) => {
             if (response.status === 401) {
-                toast.error("Session Expired");
                 window.location.href = "/login";
                 return; // stop further processing
             } else {

@@ -1,8 +1,8 @@
-import { getDataList, getDataByID } from "./actions";
+import { getDataList } from "./actions";
 import { URL_CONSTANTS } from "./url";
 
-const listStudent = (params) => {
-    return getDataList(URL_CONSTANTS.student_details, params);
+const listProduct = (params) => {
+    return getDataList(URL_CONSTANTS.products, params);
 };
 
-export { listStudent };
+export { listProduct };

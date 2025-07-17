@@ -1,17 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createStudent } from "../../api/create";
-import { getStudentAnalytics, listStudent } from "../../api/list";
-import { updateStudent } from "../../api/update";
-import { deleteStudent } from "../../api/delete";
+import { createProduct } from "../../api/create";
+import { listProduct } from "../../api/list";
+import { updateProduct } from "../../api/update";
+import { deleteProduct } from "../../api/delete";
 
-/* ======================== Thunks ======================== */
-
-// Add Student
-export const addStudent = createAsyncThunk(
-  "students/addStudent",
+// Add Product
+export const addProduct = createAsyncThunk(
+  "products/addProduct",
   async (params, { rejectWithValue }) => {
     try {
-      const response = await createStudent(params);
+      const response = await createProduct(params);
       return response;
     } catch (err) {
       if (!err.response) throw err;
@@ -20,12 +18,12 @@ export const addStudent = createAsyncThunk(
   }
 );
 
-// List Students
-export const fetchStudents = createAsyncThunk(
-  "students/fetchStudents",
+// List Products
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
   async (params, { rejectWithValue }) => {
     try {
-      const response = await listStudent(params);
+      const response = await listProduct(params);
       return response;
     } catch (err) {
       if (!err.response) throw err;
@@ -34,12 +32,12 @@ export const fetchStudents = createAsyncThunk(
   }
 );
 
-export const editStudent = createAsyncThunk(
-  "students/editStudent",
+export const editProduct = createAsyncThunk(
+  "products/editProduct",
   async ({params, id}, { rejectWithValue }) => {
     try {
       console.log("params--id", params, id);
-      const response = await updateStudent(params, id);
+      const response = await updateProduct(params, id);
       return response;
     } catch (err) {
       if (!err.response) throw err;
@@ -48,26 +46,12 @@ export const editStudent = createAsyncThunk(
   }
 );
 
-// Delete Student
-export const removeStudent = createAsyncThunk(
-  "students/removeStudent",
+// Delete Product
+export const removeProduct = createAsyncThunk(
+  "products/removeProduct",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await deleteStudent(id);
-      return response;
-    } catch (err) {
-      if (!err.response) throw err;
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
-
-// List Students
-export const fetchAnalytics = createAsyncThunk(
-  "students/fetchStudents",
-  async (params, { rejectWithValue }) => {
-    try {
-      const response = await getStudentAnalytics(params);
+      const response = await deleteProduct(id);
       return response;
     } catch (err) {
       if (!err.response) throw err;
@@ -79,9 +63,9 @@ export const fetchAnalytics = createAsyncThunk(
 /* ======================== Slice ======================== */
 
 const studentSlice = createSlice({
-  name: "students",
+  name: "products",
   initialState: {
-    students: [],
+    products: [],
     loading: false,
     error: null,
     success: false,
@@ -91,63 +75,63 @@ const studentSlice = createSlice({
     builder
 
       // List
-      .addCase(fetchStudents.pending, (state) => {
+      .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchStudents.fulfilled, (state, action) => {
+      .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.students = action.payload;
+        state.products = action.payload;
       })
-      .addCase(fetchStudents.rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
       })
 
       // Add
-      .addCase(addStudent.pending, (state) => {
+      .addCase(addProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.success = false;
       })
-      .addCase(addStudent.fulfilled, (state, action) => {
+      .addCase(addProduct.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.students.push(action.payload);
+        state.products.push(action.payload);
       })
-      .addCase(addStudent.rejected, (state, action) => {
+      .addCase(addProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
         state.success = false;
       })
 
       // Update
-      .addCase(editStudent.pending, (state) => {
+      .addCase(editProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(editStudent.fulfilled, (state, action) => {
+      .addCase(editProduct.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.students.findIndex(s => s.id === action.payload.id);
+        const index = state.products.findIndex(s => s.id === action.payload.id);
         if (index !== -1) {
-          state.students[index] = { ...state.students[index], ...action.payload.data };
+          state.products[index] = { ...state.products[index], ...action.payload.data };
         }
       })
-      .addCase(editStudent.rejected, (state, action) => {
+      .addCase(editProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
       })
 
       // Delete
-      .addCase(removeStudent.pending, (state) => {
+      .addCase(removeProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(removeStudent.fulfilled, (state, action) => {
+      .addCase(removeProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.students = state.students.filter(s => s.id !== action.payload);
+        state.products = state.products.filter(s => s.id !== action.payload);
       })
-      .addCase(removeStudent.rejected, (state, action) => {
+      .addCase(removeProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
       });

@@ -1,7 +1,7 @@
 const config = {
     develop: {
         webSite_url: 'http://localhost:3000',
-        api: 'http://localhost:7001',
+        api: 'https://fakestoreapi.in/api/',
     }
 }
 

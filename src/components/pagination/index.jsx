@@ -43,7 +43,7 @@ const Pagination = ({
             key={index}
             onClick={() => num !== "..." && onPageChange(num)}
             className={`px-3 py-1 rounded-lg ${num === currentPage
-              ? "bg-[#047bba] text-white"
+              ? "bg-[#2f4c4d] text-white"
               : num === "..."
                 ? "text-gray-500 cursor-default"
                 : "text-gray-600 hover:bg-gray-200"
